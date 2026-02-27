@@ -3,9 +3,10 @@ package com.tamthong.trackr.auth.dto;
 public record AuthResponse(
         String accessToken,
         String refreshToken,
-        String tokenType
+        String tokenType,
+        UserDto user
 ) {
-    public AuthResponse(String accessToken, String refreshToken) {
-        this(accessToken, refreshToken, "Bearer");
+    public AuthResponse(String accessToken, String refreshToken, UserDto user) {
+        this(accessToken, refreshToken, "Bearer", user);
     }
 }

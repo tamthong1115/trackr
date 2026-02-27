@@ -51,7 +51,9 @@ public class AuthService {
         String jwt = jwtService.generateAccessToken(user.getUsername(), Map.of("roles", List.of(user.getRole())));
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(user.getId());
 
-        return new AuthResponse(jwt, refreshToken.getToken());
+        UserDto userDto = new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getRole(), user.getCreatedAt(), user.getUpdatedAt());
+
+        return new AuthResponse(jwt, refreshToken.getToken(), userDto);
     }
 
     public AuthResponse authenticate(AuthRequest request) {
@@ -66,7 +68,9 @@ public class AuthService {
         refreshTokenService.deleteByUserId(user.getId());
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(user.getId());
 
-        return new AuthResponse(jwt, refreshToken.getToken());
+        UserDto userDto = new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getRole(), user.getCreatedAt(), user.getUpdatedAt());
+
+        return new AuthResponse(jwt, refreshToken.getToken(), userDto);
     }
 
     public TokenRefreshResponse refreshToken(TokenRefreshRequest request) {
